@@ -1,0 +1,30 @@
+<html>
+
+   <head>
+      <link type="text/css" rel="stylesheet"
+            href="{{ url_for('static', filename='style.css') }}"/>
+      {% block scripts %}
+        <script type=text/javascript src="{{
+          url_for('static', filename='jquery.js') }}">
+        </script>
+        <script type="text/javascript">
+          var $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+        </script>
+        <script type="text/javascript" src="{{
+          url_for('static', filename='buttons.js') }}">
+        </script>
+      {% endblock %}
+   </head>
+
+   <body>
+      <div>
+          <h1 id="title">{{ title }}</h1>
+          <p id="content">{{ content }}</p>
+      </div>
+      <div class="buttons">
+          <input class="left" id="left" type="button" value="Non-violent"/>
+          <input class="right" id="right" type="button" value="Violent"/>
+      </div>
+   </body>
+
+</html>
