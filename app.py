@@ -4,19 +4,17 @@ from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
 
-NEWS_FILENAME = 'scraped_articles.json'
+DATA_FILENAME = 'scraped_articles.json'
 LEFT_FILENAME = 'non-violent.txt'
 RIGHT_FILENAME = 'violent.txt'
-ID_FILENAME = 'id.txt'
+READ_ID_FILENAME = 'id.txt'
+LEFT_COUNT_FILENAME = 'left-count.txt'
+RIGHT_COUNT_FILENAME = 'right-count.txt'
 
 
-# TODO: agregar contador para ambos tipos de noticias
-# TODO: mejorar abstracción del problema
-
-
-def get_current_id():
+def get_counter(filename):
     try:
-        f = open(ID_FILENAME)
+        f = open(filename)
     except IOError:
         return 0
     else:
@@ -24,12 +22,8 @@ def get_current_id():
             return int(f.read())
 
 
-def replace_newlines(text_with_newlines):
-    return text_with_newlines.replace('\n', '\r\n')
-
-
 def get_element(id):
-    with open(NEWS_FILENAME) as f:
+    with open(DATA_FILENAME) as f:
         data = json.load(f)
     values = list(data.values())
     if id < len(values):
@@ -40,7 +34,7 @@ def get_element(id):
 
 @app.route("/")
 def index():
-    current_news = get_element(get_current_id())
+    current_news = get_element(get_counter(READ_ID_FILENAME))
     return render_template("index.html",
                            title=current_news['title'],
                            content=current_news['content'])
@@ -48,34 +42,38 @@ def index():
 
 @app.route('/left')
 def left():
-    content = request.args.get('content', 0, type=str)
-    print("Content=",content)
-    write_to_file(LEFT_FILENAME, content=content)
+    assign_data_to_file(LEFT_FILENAME)
+    update_counter(LEFT_COUNT_FILENAME)
     return get_update_data()
 
 
 @app.route('/right')
 def right():
-    write_to_file(RIGHT_FILENAME, request.args.get('content', 0, type=str))
+    assign_data_to_file(RIGHT_FILENAME)
+    update_counter(RIGHT_COUNT_FILENAME)
     return get_update_data()
 
 
+def assign_data_to_file(filename):
+    write_to_file(filename, request.args.get('content', 0, str))
+    update_counter(READ_ID_FILENAME)
+
+
 def get_update_data():
-    current_news = get_element(get_current_id())
+    current_news = get_element(get_counter(READ_ID_FILENAME))
     return jsonify(title=current_news['title'], content=current_news['content'])
 
 
-def update_current_id():
-    current_id = get_current_id()
-    current_id += 1
-    with open(ID_FILENAME, 'w') as f:
-        f.write(str(current_id))
+def update_counter(filename):
+    counter = get_counter(filename)
+    counter += 1
+    with open(filename, 'w') as f:
+        f.write(str(counter))
 
 
 def write_to_file(filename, content):
     with open(filename, 'a') as f:
         f.write(content + '\n')
-    update_current_id()
 
 
 if __name__ == '__main__':
