@@ -31,8 +31,12 @@ input[type=button] {
 }
 
 div {
-    border: 1px solid gray;
     padding: 8px;
+}
+
+.text-display {
+    border: 1px solid gray;
+    white-space: pre-wrap;
 }
 
 h1 {
@@ -47,5 +51,5 @@ p {
 }
 
 .buttons {
-    padding: 70px;
+    padding: 20px;
 }

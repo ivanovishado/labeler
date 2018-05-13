@@ -4,9 +4,14 @@ from flask import Flask, render_template, request, jsonify
 app = Flask(__name__)
 
 
+NEWS_FILENAME = 'scraped_articles.json'
 LEFT_FILENAME = 'non-violent.txt'
 RIGHT_FILENAME = 'violent.txt'
 ID_FILENAME = 'id.txt'
+
+
+# TODO: agregar contador para ambos tipos de noticias
+# TODO: mejorar abstracción del problema
 
 
 def get_current_id():
@@ -19,8 +24,12 @@ def get_current_id():
             return int(f.read())
 
 
+def replace_newlines(text_with_newlines):
+    return text_with_newlines.replace('\n', '\r\n')
+
+
 def get_element(id):
-    with open('resources/lol.json') as f:
+    with open(NEWS_FILENAME) as f:
         data = json.load(f)
     values = list(data.values())
     if id < len(values):
@@ -70,4 +79,4 @@ def write_to_file(filename, content):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=1)
