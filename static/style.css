@@ -1,4 +1,4 @@
-input[type=button] {
+button {
     background-color: white;
     color: black;
     padding: 15px 32px;
@@ -30,6 +30,15 @@ input[type=button] {
     color: white;
 }
 
+.skip {
+    border: 2px solid black;
+}
+
+.skip:hover {
+    background-color: black;
+    color: white;
+}
+
 div {
     padding: 8px;
 }
@@ -51,5 +60,14 @@ p {
 }
 
 .buttons {
+    float: right;
+    position: relative;
+    left:  -50%;
+    text-align: left;
     padding: 20px;
+}
+
+.buttons > .centered {
+    position: relative;
+    left: 50%;
 }

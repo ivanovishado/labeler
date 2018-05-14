@@ -54,6 +54,12 @@ def right():
     return get_update_data()
 
 
+@app.route('/skip')
+def skip():
+    update_counter(READ_ID_FILENAME)
+    return get_update_data()
+
+
 def assign_data_to_file(filename):
     write_to_file(filename, request.args.get('content', 0, str))
     update_counter(READ_ID_FILENAME)
