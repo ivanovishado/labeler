@@ -78,7 +78,7 @@ def update_counter(filename):
 
 
 def write_to_file(filename, content):
-    with open(filename, 'a') as f:
+    with open(filename, 'a', encoding="utf-8") as f:
         f.write(content + '\n')
 
 

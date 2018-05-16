@@ -71,3 +71,9 @@ p {
     position: relative;
     left: 50%;
 }
+
+textarea {
+    width: 100%;
+    text-align: justify;
+    font-family: "Verdana", sans-serif;
+}

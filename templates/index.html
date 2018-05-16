@@ -19,13 +19,21 @@
    <body>
       <div class="text-display">
           <h1 id="title">{{ title }}</h1>
-          <p id="content">{{ content }}</p>
+          <textarea id="content">{{ content }}</textarea>
       </div>
       <div class="buttons">
           <button class="left centered" id="left" type="button">Non-violent</button>
           <button class="right centered" id="right" type="button">Violent</button>
-          <button class="skip centered" id="skip" type="button">Can't decide/pass</button>
+          <button class="skip centered" id="skip" type="button">Can't decide/skip</button>
       </div>
+      <script>
+        $('textarea').each(function () {
+          this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+        }).on('input', function () {
+          this.style.height = 'auto';
+          this.style.height = (this.scrollHeight) + 'px';
+        });
+      </script>
    </body>
 
 </html>

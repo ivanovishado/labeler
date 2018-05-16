@@ -1,12 +1,14 @@
-function updateData(title, content) {
-    $("#title").text(title);
-    $("#content").text(content);
+function updateData(updatedTitle, updatedContent) {
+    $("#title").text(updatedTitle);
+    let content = $("#content");
+    content.val(updatedContent);
+    content.height(content.scrollHeight);
 }
 
 $(document).ready(function(){
-	$('#left').on('click keypress', function() {
+	$('#left').on('click', function() {
 		$.getJSON($SCRIPT_ROOT + '/left', {
-			content: $('#content').text(),
+			content: $('#content').val(),
 		}, function (data) {
 			updateData(data.title, data.content);
 		});
@@ -15,7 +17,7 @@ $(document).ready(function(){
 
 	$('#right').on('click', function() {
 		$.getJSON($SCRIPT_ROOT + '/right', {
-			content: $('#content').text(),
+			content: $('#content').val(),
 		}, function (data) {
 			updateData(data.title, data.content);
 		});
