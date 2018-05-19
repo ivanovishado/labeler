@@ -1,8 +1,13 @@
 function updateData(updatedTitle, updatedContent) {
     $("#title").text(updatedTitle);
-    let content = $("#content");
-    content.val(updatedContent);
-    content.height(content.scrollHeight);
+    $("#content").val(updatedContent);
+    $('textarea').each(function () {
+      this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+    });
+}
+
+function updateCounter(counterElement, updatedCounter) {
+    $(counterElement).text(updatedCounter);
 }
 
 $(document).ready(function(){
@@ -11,6 +16,7 @@ $(document).ready(function(){
 			content: $('#content').val(),
 		}, function (data) {
 			updateData(data.title, data.content);
+			updateCounter("#display-left-count", data.counter);
 		});
 		return false;
 	});
@@ -20,12 +26,14 @@ $(document).ready(function(){
 			content: $('#content').val(),
 		}, function (data) {
 			updateData(data.title, data.content);
+			updateCounter("#display-right-count", data.counter);
 		});
 		return false;
     });
 
 	$('#skip').on('click', function () {
 		$.getJSON($SCRIPT_ROOT + '/skip', {
+		    content: $('#content').val(),
 		}, function (data) {
 			updateData(data.title, data.content);
         });

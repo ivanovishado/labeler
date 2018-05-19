@@ -21,6 +21,14 @@
           <h1 id="title">{{ title }}</h1>
           <textarea id="content">{{ content }}</textarea>
       </div>
+      <div class="counters">
+          <label class="left-count">
+              Non-violent count: <span id="display-left-count">{{ left_count }}</span>
+          </label>
+          <label class="right-count">
+              Violent count: <span id="display-right-count">{{ right_count }}</span>
+          </label>
+      </div>
       <div class="buttons">
           <button class="left centered" id="left" type="button">Non-violent</button>
           <button class="right centered" id="right" type="button">Violent</button>
