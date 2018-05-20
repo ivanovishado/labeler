@@ -26,22 +26,10 @@ $(document).ready(function(){
 	});
 
 	$('#right').on('click', function() {
-		$.getJSON($SCRIPT_ROOT + '/right', {
-			content: $('#content').val(),
-		}, function (data) {
-			updateData(data.title, data.content);
-			updateCounter("#display-right-count", data.counter);
-		});
-		return false;
+		updateInfo('/right', "#display-right-count");
     });
 
 	$('#skip').on('click', function () {
-		$.getJSON($SCRIPT_ROOT + '/skip', {
-		    content: $('#content').val(),
-		}, function (data) {
-			updateData(data.title, data.content);
-			updateCounter("#display-center-count", data.counter);
-        });
-		return false;
+		updateInfo('/skip', "#display-center-count");
     })
 });
