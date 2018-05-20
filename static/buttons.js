@@ -10,15 +10,19 @@ function updateCounter(counterElement, updatedCounter) {
     $(counterElement).text(updatedCounter);
 }
 
+function updateInfo(route, display) {
+	$.getJSON($SCRIPT_ROOT + route, {
+		content: $('#content').val(),
+	}, function (data) {
+		updateData(data.title, data.content);
+		updateCounter(display, data.counter);
+	});
+	return false;
+}
+
 $(document).ready(function(){
 	$('#left').on('click', function() {
-		$.getJSON($SCRIPT_ROOT + '/left', {
-			content: $('#content').val(),
-		}, function (data) {
-			updateData(data.title, data.content);
-			updateCounter("#display-left-count", data.counter);
-		});
-		return false;
+		updateInfo('/left', "#display-left-count");
 	});
 
 	$('#right').on('click', function() {
@@ -36,6 +40,7 @@ $(document).ready(function(){
 		    content: $('#content').val(),
 		}, function (data) {
 			updateData(data.title, data.content);
+			updateCounter("#display-center-count", data.counter);
         });
 		return false;
     })

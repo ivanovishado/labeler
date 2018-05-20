@@ -4,22 +4,14 @@ button {
     padding: 15px 32px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    width: 50%;
+    margin: auto;
     font-size: 16px;
     -webkit-transition-duration: 0.4s; /* Safari */
     transition-duration: 0.4s;
 }
 
-.left-count {
-    float: left;
-}
-
-.right-count {
-    float: right;
-}
-
 .left {
-    float: left;
     border: 2px solid #4CAF50;
 }
 
@@ -29,7 +21,6 @@ button {
 }
 
 .right {
-    float: right;
     border: 2px solid #f44336;
 }
 
@@ -67,17 +58,30 @@ p {
     letter-spacing: 2px;
 }
 
-.buttons {
-    float: right;
-    position: relative;
-    left:  -50%;
-    text-align: left;
-    padding: 20px;
+.column {
+    text-align: center;
+    float: left;
+    width: 33%;
 }
 
-.buttons > .centered {
-    position: relative;
-    left: 50%;
+.row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+/* Responsive layout - when the screen is less than 600px wide, make the three columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
 }
 
 textarea {

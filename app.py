@@ -41,7 +41,8 @@ def index():
                            title=current_news['title'],
                            content=current_news['content'],
                            left_count=get_counter(LEFT_COUNT_FILENAME),
-                           right_count=get_counter(RIGHT_COUNT_FILENAME))
+                           right_count=get_counter(RIGHT_COUNT_FILENAME),
+                           no_decision_count=get_counter(NO_DECISION_FILENAME))
 
 
 @app.route('/left')
@@ -61,8 +62,8 @@ def right():
 @app.route('/skip')
 def skip():
     assign_data_to_file(NO_DECISION_FILENAME)
-    update_counter(READ_ID_FILENAME)
-    return get_update_data(None)
+    update_counter(NO_DECISION_FILENAME)
+    return get_update_data(NO_DECISION_FILENAME)
 
 
 def assign_data_to_file(filename):
@@ -72,13 +73,9 @@ def assign_data_to_file(filename):
 
 def get_update_data(counter_filename):
     current_news = get_element(get_counter(READ_ID_FILENAME))
-    info_sent = {
-        'title': current_news['title'],
-        'content': current_news['content']
-    }
-    if counter_filename is not None:
-        info_sent['counter'] = get_counter(counter_filename)
-    return jsonify(info_sent)
+    return jsonify(title=current_news['title'],
+                   content=current_news['content'],
+                   counter=get_counter(counter_filename))
 
 
 def update_counter(filename):
