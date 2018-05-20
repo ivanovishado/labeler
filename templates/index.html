@@ -24,26 +24,20 @@
       </div>
       <div class="row">
           <div class="column">
-              <label class="left-count">
-                  Non-violent count: <span id="display-left-count">{{ left_count }}</span>
+              <label class="left-count">Non-violent count: <span id="display-left-count">{{ left_count }}</span>
               </label><br>
               <button class="left" id="left" type="button">Non-violent</button>
           </div>
           <div class="column">
-              <label>
-                  Skipped count: <span id="display-center-count">{{ no_decision_count }}</span>
+              <label>Skipped count: <span id="display-center-count">{{ no_decision_count }}</span>
               </label><br>
               <button class="skip" id="skip" type="button">Can't decide/skip</button>
           </div>
           <div class="column">
-              <label class="right-count">
-                  Violent count: <span id="display-right-count">{{ right_count }}</span>
+              <label class="right-count">Violent count: <span id="display-right-count">{{ right_count }}</span>
               </label><br>
               <button class="right" id="right" type="button">Violent</button>
           </div>
-      </div>
-      <div class="counters">
-
       </div>
       <script>
         $('textarea').each(function () {

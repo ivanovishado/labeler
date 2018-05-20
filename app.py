@@ -42,7 +42,8 @@ def index():
                            content=current_news['content'],
                            left_count=get_counter(LEFT_COUNT_FILENAME),
                            right_count=get_counter(RIGHT_COUNT_FILENAME),
-                           no_decision_count=get_counter(NO_DECISION_FILENAME))
+                           no_decision_count=get_counter(
+                               NO_DECISION_COUNT_FILENAME))
 
 
 @app.route('/left')
@@ -62,8 +63,8 @@ def right():
 @app.route('/skip')
 def skip():
     assign_data_to_file(NO_DECISION_FILENAME)
-    update_counter(NO_DECISION_FILENAME)
-    return get_update_data(NO_DECISION_FILENAME)
+    update_counter(NO_DECISION_COUNT_FILENAME)
+    return get_update_data(NO_DECISION_COUNT_FILENAME)
 
 
 def assign_data_to_file(filename):
